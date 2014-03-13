@@ -1,0 +1,16 @@
+Andrew Sikowitz
+
+
+Searching through a sorted Array/ArrayLlist
+
+The algorithm to find a value in a sorted list would use divide and conquer (how surprising). The algorithm would: (written in sudo-code)
+1. Start at the middle of the list, element x
+2. If list[x] = value: return the index
+3. If list[x] > value: run recursively on the sublist of elements with an index higher than x
+4. Else (if list[x] < value): run recursively on the sublist of elements with an index lower than x
+
+At the start of the algorithm would be a check if the length of the list is 0 (or 1, depending on how the algorithm is implemented), in which case return -1 or an error because the value is not in the list.
+
+This works because it is narrowing down where the value could be in the list, cutting down the number of possible choices by 1/2 each run. Therefore it runs log(n) times--> a O(logn) run time. 
+
+I tried implementing this in Search.java, but while the code works it runs significantly slower than the linear search, and I can't get an array large enough to see the effects as n->infinity because of memory issues.
