@@ -6,10 +6,20 @@ public class MyLinkedList {
 	head = new Node("");
     }
     
-    public void add(String d) {
+    /*public void add(String d) {
 	Node tmp = new Node(d);
 	tmp.setNext(head.getNext());
 	head.setNext(tmp);
+	}*/
+
+    public void add(String d) {
+	Node n = head;
+	Node tmp = new Node(d);
+
+	while (n.getNext() != null)
+	    n = n.getNext();
+	
+	n.setNext(tmp);
     }
 
     public void add(int i, String d) {
