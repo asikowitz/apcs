@@ -1,9 +1,9 @@
 //Andrew Sikowitz and Lise Ho
 
 public class DoubleLL<E> {
-    private class Node<e> {
+    private class Node<E> {
 	E data;
-	Node<e> next, prev;
+	Node<E> next, prev;
 
 	public Node(E d) {
 	    this.data = d;
@@ -46,8 +46,11 @@ public class DoubleLL<E> {
 	    current = n;
 	}
 	else {
-	    n.next = current;
-	    current.prev = n;
+	    n.setNext(current);
+	    n.setPrev(current.getPrev());
+	    if (current.getPrev() != null)
+		current.getPrev().setNext(n);
+	    current.setPrev(n);
 	    current = n;
 	}
     }
@@ -69,11 +72,13 @@ public class DoubleLL<E> {
     public String toString() {
 	if (current == null)
 	    return "";
-	while (current.getPrev() != null)
-	    current = current.getPrev();
 
 	Node<E> tmp = current;
 	String s = "";
+
+	while (tmp.getPrev() != null)
+	    tmp = tmp.getPrev();
+
 	while (tmp != null) {
 	    s = s + tmp.getData() + " ";
 	    tmp = tmp.getNext();
@@ -91,4 +96,10 @@ public class DoubleLL<E> {
 	System.out.println(L);
 	L.insert("three");
 	System.out.println(L);
+	L.forward();
+	System.out.println(L.getCurrent());
+	L.insert("inserted");
+	System.out.println(L);
+	System.out.println(L.getCurrent());
     }
+}
