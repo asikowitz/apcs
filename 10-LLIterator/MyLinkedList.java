@@ -1,28 +1,55 @@
-public class MyLinkedList {
+import java.util.*;
+import java.io.*;
 
-    private Node head;
-    private Node tail;
+public class MyLinkedList<E> implements Iterable<E> {
+
+    private class MyLLIterator<E> implements Iterator<E> {
+	private Node<E> n;
+
+	public MyLLIterator(Node<E> n) {
+	    this.n = n;
+	}
+
+	public boolean hasNext() {
+	    return n.getNext() != null;
+	}
+
+	public E next() {
+	    n = n.getNext();
+	    return n.getData();
+	}
+
+	public void remove() {}
+    }
+
+    private Node<E> head;
+    private Node<E> tail;
 
     public MyLinkedList() {
-	head = new Node("");
+	head = new Node<E>(null);
 	tail = head;
+    }
+
+    public MyLLIterator<E> iterator() {
+	MyLLIterator<E> li = new MyLLIterator<E>(head);
+	return li;
     }
     
     /*public void add(String d) {
-	Node tmp = new Node(d);
+	Node<E> tmp = new Node<E>(d);
 	tmp.setNext(head.getNext());
 	head.setNext(tmp);
 	}*/
 
-    public void add(String d) {
-	Node n = new Node(d);
+    public void add(E d) {
+	Node<E> n = new Node<E>(d);
 	tail.setNext(n);
 	tail = n;
     }
 
-    public void add(int i, String d) {
-	Node n = head;
-	Node tmp = new Node(d);
+    public void add(int i, E d) {
+	Node<E> n = head;
+	Node<E> tmp = new Node<E>(d);
 	
 	for (int x=0; x<i; x++)
 	    n = n.getNext();
@@ -33,43 +60,43 @@ public class MyLinkedList {
 	    tail = tmp;
     }
 
-    public String get(int i) {
-	Node n = head.getNext();
+    public E get(int i) {
+	Node<E> n = head.getNext();
 	for (int x=0; x<i; x++)
 	    n = n.getNext();
 	return n.getData();
     }
 
-    public String set(int i, String s) {
-	Node n = head.getNext();
+    public E set(int i, E s) {
+	Node<E> n = head.getNext();
 
 	for (int x=0; x<i; x++)
 	    n = n.getNext();
 
-	String old = n.getData();
+	E old = n.getData();
 	n.setData(s);
 	return old;
     }
 
-    public String remove(int i) {
-	Node n = head;
+    public E remove(int i) {
+	Node<E> n = head;
 
 	for (int x=0; x<i; x++)
 	    n = n.getNext();
 
-	Node m = n.getNext();
-	String old = m.getData();
+	Node<E> m = n.getNext();
+	E old = m.getData();
 	n.setNext(m.getNext());
 	m.setNext(null);
 	return old;
     }
 
-    public int find(String s) {
-	Node n = head.getNext();
+    public int find(E s) {
+	Node<E> n = head.getNext();
 	int c = 0;
 
 	while (true) { //Will continue until return or error
-	    if (n.getData() == s)
+	    if (n.getData().equals(s))
 		return c;
 	    c++;
 	    n = n.getNext();
@@ -77,7 +104,7 @@ public class MyLinkedList {
     }
 
     public int length() {
-	Node n = head.getNext();
+	Node<E> n = head.getNext();
 	int c;
 	
 	if (head == null)
@@ -92,9 +119,9 @@ public class MyLinkedList {
 	return c;
     }
 
-    public String toString() {
+    /*public String toString() {
 	String s= "";
-	Node n = head.getNext();
+	Node<E> n = head.getNext();
 	while(n.getNext() != null) {
 	    s += n.getData();
 	    if (n.getNext().getNext() != null)
@@ -102,15 +129,23 @@ public class MyLinkedList {
 	    n = n.getNext();
 	}
 	return s;
+	}*/
+
+    public String toString() { //New toString method uses iterator
+	String s = "";
+	for (E x : this)
+	    s = s + x + " ";
+
+	return s;
     }
 
     public static void main(String[] args) {
-	MyLinkedList L = new MyLinkedList();
+	MyLinkedList<String> L = new MyLinkedList<String>();
 	for (int i=0; i<10; i++)
 	    L.add(Integer.toString(i));
 
 	System.out.println(L);
-	L.add(3, "Pizza");
+	L.add(1, "Pizza");
 	System.out.println(L);
 	System.out.println(L.get(7));
 	System.out.println(L.remove(5));
@@ -123,5 +158,6 @@ public class MyLinkedList {
 	//L.set(11, "error");
 	//L.get(11);
 	//L.remove(11);
+
     }
 }
