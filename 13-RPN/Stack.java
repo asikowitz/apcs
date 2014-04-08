@@ -28,7 +28,7 @@ public class Stack {
 
 	if (!isEmpty()) {
 	    s = n[top];
-	    n[top] = 0;
+	    //n[top] = null;
 	    top = top - 1;
 	}
 
@@ -41,14 +41,21 @@ public class Stack {
 	return 0;
     }
 
-    public void clear() {
-	n = new double[n.length];
-    }
-
     public String toString() {
 	String s = "";
 	for (int i=top; i>=0; i--)
-	    s = s + n[i] + " ";
-	return s.substring(0,s.length()-1);
+	    s = s + trim(Double.toString(n[i])) + ", ";
+	return s.substring(0,s.length()-2);
+    }
+
+    public String trim(String s) {
+	if (s.substring(s.length()-2, s.length()).equals(".0"))
+	    return s.substring(0, s.length()-2);
+	else
+	    return s;
+    }
+
+    public void clear() {
+	n = new double[n.length];
     }
 }

@@ -1,5 +1,9 @@
+import java.util.*;
+import java.io.*;
+
 public class Calc {
     Stack n = new Stack();
+    Scanner scan = new Scanner(System.in);
     final String op = "+-/*^%";
 
     public String input(String s) {
@@ -7,17 +11,17 @@ public class Calc {
 	    double y = n.pop();
 	    double x = n.pop();
 	    
-	    if (s == "+")
+	    if (s.equals("+"))
 		n.push(x+y);
-	    else if (s == "-")
+	    else if (s.equals("-"))
 		n.push(x-y);
-	    else if (s == "*")
+	    else if (s.equals("*"))
 		n.push(x*y);
-	    else if (s == "/")
+		else if (s.equals("/"))
 		n.push(x/y);
-	    else if (s == "^")
+		else if (s.equals("^"))
 		n.push(Math.pow(x, y));
-	    else if (s == "%")
+		else if (s.equals("%"))
 		n.push(x%y);
 	}
 	else {
@@ -49,9 +53,23 @@ public class Calc {
 	n.clear();
     }
 
+    public void run() {
+	while(true) {
+	    System.out.print("Input: ");
+	    String s = scan.nextLine();
+	    if (s.equals("clear"))
+		clear();
+	    else if (s.equals("quit"))
+		System.exit(0);
+	    else
+		System.out.println(input(s) + " (" + n + ")");
+	}
+    }
+
     public static void main(String[] args) {
 	Calc c = new Calc();
-	System.out.println(c.input("3"));
+	c.run();
+	/*System.out.println(c.input("3"));
 	System.out.println(c.input("45"));
 	System.out.println(c.input("+"));
 	System.out.println(c.input("7"));
@@ -64,6 +82,6 @@ public class Calc {
 	System.out.println(c.input("/"));
 	System.out.println(c.input("*"));
 	System.out.println(c.input("^"));
-	//Should be 2^5 = 32
+	//Should be 2^5 = 32*/
     }
 }
