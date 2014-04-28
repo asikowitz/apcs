@@ -7,8 +7,10 @@ public class BST {
 
     public Node search(int x) {
 	Node temp = root;
-	while (temp.getData() != x && temp != null) {
-	    if (temp.getData() < x)
+	while (temp != null) {
+	    if (temp.getData() == x)
+		return temp;
+	    else if (temp.getData() < x)
 		temp = temp.getRight();
 	    else
 		temp = temp.getLeft();
