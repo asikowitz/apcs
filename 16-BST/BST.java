@@ -30,25 +30,21 @@ public class BST {
 
     public void insert(int x) {
 	Node second = root;
-	Node temp;
+	Node temp = root;
 
 	if (root == null) {
 	    root = new Node(x);
 	    return;
 	}
-	else if (root.getData() < x)
-	    temp = root.getRight();
-	else
-	    temp = root.getLeft();
 
 	while (temp != null) {
 	    if (root.getData() < x) {
+		second = temp;
 		temp = temp.getRight();
-		second = second.getRight();
 	    }
 	    else {
+		second = temp;
 		temp = temp.getLeft();
-		second = second.getLeft();
 	    }
 	}
 	
